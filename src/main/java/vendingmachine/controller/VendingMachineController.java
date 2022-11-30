@@ -53,10 +53,16 @@ public class VendingMachineController {
     }
 
     private HoldingCoins getHoldingCoins() {
-        CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
-        List<Coin> coins = converter.convert(read(inputView::readHoldingMoney));
+        Money money = read(inputView::readHoldingMoney);
+        List<Coin> coins = toCoins(money);
 
         return HoldingCoins.from(coins);
+    }
+
+    private  List<Coin> toCoins(Money money) {
+        CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
+
+        return converter.convert(money);
     }
 
     private <T> T read(Supplier<T> supplier) {
