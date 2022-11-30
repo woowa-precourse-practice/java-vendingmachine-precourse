@@ -2,6 +2,7 @@ package vendingmachine.view;
 
 import vendingmachine.Coin;
 import vendingmachine.model.HoldingCoins;
+import vendingmachine.model.VendingMachine;
 
 public class OutputView {
 
@@ -10,6 +11,7 @@ public class OutputView {
     private static final String COIN_100_STATISTIC = "100원 - %d개\n";
     private static final String COIN_50_STATISTIC = "50원 - %d개\n";
     private static final String COIN_10_STATISTIC = "10원 - %d개\n";
+    private static final String INSERTED_MONEY_IS = "투입 금액: ";
 
     public void printHoldingCoins(HoldingCoins holdingCoins) {
         System.out.println(HOLDING_COINS_INTRO);
@@ -17,5 +19,10 @@ public class OutputView {
         System.out.printf(COIN_100_STATISTIC, holdingCoins.count(Coin.COIN_100));
         System.out.printf(COIN_50_STATISTIC, holdingCoins.count(Coin.COIN_50));
         System.out.printf(COIN_10_STATISTIC, holdingCoins.count(Coin.COIN_10));
+    }
+
+    public void printInsertedMoney(VendingMachine vendingMachine) {
+        System.out.print(INSERTED_MONEY_IS);
+        System.out.println(vendingMachine.getInsertedMoney());
     }
 }
