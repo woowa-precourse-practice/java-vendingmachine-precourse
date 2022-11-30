@@ -13,7 +13,7 @@ public class OutputView {
     private static final String COIN_100_STATISTIC = "100원 - %d개\n";
     private static final String COIN_50_STATISTIC = "50원 - %d개\n";
     private static final String COIN_10_STATISTIC = "10원 - %d개\n";
-    private static final String INSERTED_MONEY_IS = "투입 금액: ";
+    private static final String INSERTED_MONEY_IS = "투입 금액: %d원\n";
     private static final String BALANCE_COIN_IS = "잔돈";
     private static final String BALANCE_INFO = "%d원 - %d개\n";
 
@@ -26,8 +26,7 @@ public class OutputView {
     }
 
     public void printInsertedMoney(VendingMachine vendingMachine) {
-        System.out.print(INSERTED_MONEY_IS);
-        System.out.println(vendingMachine.getInsertedMoney());
+        System.out.printf(INSERTED_MONEY_IS, vendingMachine.getInsertedMoney());
     }
 
     public void printBalanceCoin(Map<Coin, Integer> coinsOfBalance) {
@@ -35,7 +34,7 @@ public class OutputView {
 
         StringBuilder message = new StringBuilder();
         coinsOfBalance.keySet()
-                .forEach(coin -> message.append(BALANCE_INFO, coin.getAmount(), coinsOfBalance.get(coin)));
+                .forEach(coin -> message.append(String.format(BALANCE_INFO, coin.getAmount(), coinsOfBalance.get(coin))));
 
         System.out.println(message);
     }
