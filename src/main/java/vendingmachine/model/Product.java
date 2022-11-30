@@ -61,4 +61,8 @@ public class Product {
     public static Product from(String product) {
         return new Product(product);
     }
+
+    public boolean is(String name) {
+        return this.name.equals(name);
+    }
 }
