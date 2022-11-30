@@ -1,7 +1,6 @@
 package vendingmachine;
 
 import org.assertj.core.api.Assertions;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import vendingmachine.model.Money;
@@ -28,20 +27,4 @@ public class CoinConverterTest {
                         Coin.COIN_10
                 );
     }
-
-
-    static class TestCoinAmountGenerator implements CoinAmountGenerator {
-
-        private final List<Integer> amounts;
-
-        public TestCoinAmountGenerator() {
-            this.amounts = Lists.newArrayList(500, 100, 100, 50, 10);
-        }
-
-        @Override
-        public int generate() {
-            return amounts.remove(0);
-        }
-    }
-
 }
