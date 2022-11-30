@@ -27,7 +27,7 @@ public class OutputView {
     }
 
     public void printInsertedMoney(VendingMachine vendingMachine) {
-        System.out.printf(INSERTED_MONEY_IS, vendingMachine.getInsertedMoney());
+        System.out.printf(INSERTED_MONEY_IS, vendingMachine.getBalance());
     }
 
     public void printBalanceCoin(Map<Coin, Integer> coinsOfBalance) {

@@ -51,7 +51,7 @@ public class VendingMachineTest {
 
         vendingMachine.purchase("사과");
 
-        assertThat(vendingMachine.getInsertedMoney()).isEqualTo(4900);
+        assertThat(vendingMachine.getBalance()).isEqualTo(4900);
     }
 
     @DisplayName("잔돈을 최소 동전으로 반환하는 기능")
