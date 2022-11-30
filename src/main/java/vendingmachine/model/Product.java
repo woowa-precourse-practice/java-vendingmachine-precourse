@@ -78,10 +78,6 @@ public class Product {
         quantity.decrease();
     }
 
-    public int getQuantity() {
-        return quantity.getQuantity();
-    }
-
     public boolean hasStock() {
         return quantity.hasStock();
     }
