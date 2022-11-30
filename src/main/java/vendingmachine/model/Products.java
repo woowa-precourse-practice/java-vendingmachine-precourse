@@ -1,7 +1,6 @@
 package vendingmachine.model;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,7 @@ public class Products {
 
     public int getCheapestPrice() {
         return products.stream()
-                .mapToInt(product -> product.getPrice())
+                .mapToInt(Product::getPrice)
                 .min()
                 .getAsInt();
     }
