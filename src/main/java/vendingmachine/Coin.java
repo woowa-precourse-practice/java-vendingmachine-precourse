@@ -1,5 +1,7 @@
 package vendingmachine;
 
+import vendingmachine.model.Money;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,5 +38,9 @@ public enum Coin {
 
     public int getAmount() {
         return amount;
+    }
+
+    public int countConvertable(int money) {
+        return money / amount;
     }
 }
