@@ -81,4 +81,8 @@ public class Product {
     public int getQuantity() {
         return quantity.getQuantity();
     }
+
+    public boolean hasStock() {
+        return quantity.hasStock();
+    }
 }

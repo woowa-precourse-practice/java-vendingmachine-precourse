@@ -1,5 +1,11 @@
 package vendingmachine.model;
 
+import vendingmachine.Coin;
+import vendingmachine.CoinConverter;
+import vendingmachine.RandomCoinAmountGenerator;
+
+import java.util.Map;
+
 public class VendingMachine {
 
     private final Products products;
@@ -29,5 +35,17 @@ public class VendingMachine {
 
     public int getInsertedMoney() {
         return insertedMoney.getAmount();
+    }
+
+    public boolean purchasable() {
+        int cheapestPrice = products.getCheapestPrice();
+
+        return insertedMoney.isAvailable(cheapestPrice) && products.hasStock();
+    }
+
+    public Map<Coin, Integer> convertBalanceToCoins() {
+        CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
+
+        return converter.convertOptimal(insertedMoney);
     }
 }

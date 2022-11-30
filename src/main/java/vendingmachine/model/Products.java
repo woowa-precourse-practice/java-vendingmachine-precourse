@@ -1,6 +1,7 @@
 package vendingmachine.model;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,5 +27,17 @@ public class Products {
                 .filter(product -> product.is(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(PRODUCT_NOT_FOUND));
+    }
+
+    public int getCheapestPrice() {
+        return products.stream()
+                .mapToInt(product -> product.getPrice().getAmount())
+                .min()
+                .getAsInt();
+    }
+
+    public boolean hasStock() {
+        return products.stream()
+                .anyMatch(Product::hasStock);
     }
 }
