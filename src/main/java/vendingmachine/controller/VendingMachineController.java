@@ -11,6 +11,7 @@ import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class VendingMachineController {
 
@@ -37,8 +38,8 @@ public class VendingMachineController {
     }
 
     private VendingMachine initVendingMachine(HoldingCoins holdingCoins) {
-        Products products = readProducts();
-        Money insertedMoney = readInsertedMoney();
+        Products products = read(inputView::readProducts);
+        Money insertedMoney = read(inputView::readInsertedMoney);
 
         VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins);
         vendingMachine.insertMoney(insertedMoney);
@@ -47,50 +48,23 @@ public class VendingMachineController {
 
     private void purchaseProduct(VendingMachine vendingMachine) {
         outputView.printInsertedMoney(vendingMachine);
-        String productName = readProductName();
+        String productName = read(inputView::readProductName);
         vendingMachine.purchase(productName);
-    }
-
-    private String readProductName() {
-        try {
-            return inputView.readProductName();
-        } catch (IllegalArgumentException error) {
-            outputView.printError(error);
-            return readProductName();
-        }
-    }
-
-    private Money readInsertedMoney() {
-        try {
-            return inputView.readInsertedMoney();
-        } catch (IllegalArgumentException error) {
-            outputView.printError(error);
-            return readInsertedMoney();
-        }
-    }
-
-    private Products readProducts() {
-        try {
-            return inputView.readProducts();
-        } catch (IllegalArgumentException error) {
-            outputView.printError(error);
-            return readProducts();
-        }
     }
 
     private HoldingCoins getHoldingCoins() {
         CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
-        List<Coin> coins = converter.convert(readMoney());
+        List<Coin> coins = converter.convert(read(inputView::readHoldingMoney));
 
         return HoldingCoins.from(coins);
     }
 
-    private Money readMoney() {
+    private <T> T read(Supplier<T> supplier) {
         try {
-            return inputView.readHoldingMoney();
+            return supplier.get();
         } catch (IllegalArgumentException error) {
             outputView.printError(error);
-            return readMoney();
+            return read(supplier);
         }
     }
 }
