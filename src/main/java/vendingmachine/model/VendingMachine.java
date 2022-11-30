@@ -1,10 +1,7 @@
 package vendingmachine.model;
 
 import vendingmachine.Coin;
-import vendingmachine.CoinConverter;
-import vendingmachine.RandomCoinAmountGenerator;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,17 +11,14 @@ public class VendingMachine {
     private final HoldingCoins holdingCoins;
     private Money insertedMoney;
 
-    public VendingMachine(Products products, HoldingCoins holdingCoins) {
+    public VendingMachine(Products products, HoldingCoins holdingCoins, Money insertedMoney) {
         this.products = products;
         this.holdingCoins = holdingCoins;
+        this.insertedMoney = insertedMoney;
     }
 
-    public static VendingMachine of(Products products, HoldingCoins holdingCoins) {
-        return new VendingMachine(products, holdingCoins);
-    }
-
-    public void insertMoney(Money money) {
-        this.insertedMoney = money;
+    public static VendingMachine of(Products products, HoldingCoins holdingCoins, Money insertedMoney) {
+        return new VendingMachine(products, holdingCoins, insertedMoney);
     }
 
     public void purchase(String productName) {

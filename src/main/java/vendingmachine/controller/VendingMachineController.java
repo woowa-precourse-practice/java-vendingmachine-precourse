@@ -41,9 +41,7 @@ public class VendingMachineController {
         Products products = read(inputView::readProducts);
         Money insertedMoney = read(inputView::readInsertedMoney);
 
-        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins);
-        vendingMachine.insertMoney(insertedMoney);
-        return vendingMachine;
+        return VendingMachine.of(products, holdingCoins, insertedMoney);
     }
 
     private void purchaseProduct(VendingMachine vendingMachine) {

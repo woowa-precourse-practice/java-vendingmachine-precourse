@@ -11,22 +11,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class VendingMachineTest {
 
-    VendingMachine vendingMachine;
     Products products;
+    HoldingCoins holdingCoins;
 
     @BeforeEach
     void setUp() {
-        products = Products.of("[사과,100,20];[배,500,10]");
-        CoinConverter converter = new CoinConverter(new TestCoinAmountGenerator());
-        HoldingCoins holdingCoins = HoldingCoins.from(converter.convert(Money.from("760")));
+        products = getProducts();
+        holdingCoins = getHoldingCoins();
+    }
 
-        vendingMachine = VendingMachine.of(products, holdingCoins);
+    private static Products getProducts() {
+        return Products.of("[사과,100,20];[배,500,10]");
+    }
+
+    private static HoldingCoins getHoldingCoins() {
+        CoinConverter converter = new CoinConverter(new TestCoinAmountGenerator());
+
+        return HoldingCoins.from(converter.convert(Money.from("760")));
     }
 
     @DisplayName("상품을 구매하면 수량이 줄어든다.")
     @Test
     void buyProductThenQuantityDecrease() {
-        vendingMachine.insertMoney(Money.from("5000"));
+        Money insertedMoney = Money.from("5000");
+        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins, insertedMoney);
+
         vendingMachine.purchase("사과");
 
         assertThat(products.findByName("사과"))
@@ -37,9 +46,10 @@ public class VendingMachineTest {
     @DisplayName("상품을 구매하면 투입 금액이 줄어든다.")
     @Test
     void buyProductThenInsertedMoneyDecrease() {
-        vendingMachine.insertMoney(Money.from("5000"));
-        vendingMachine.purchase("사과");
+        Money insertedMoney = Money.from("5000");
+        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins, insertedMoney);
 
+        vendingMachine.purchase("사과");
 
         assertThat(vendingMachine.getInsertedMoney()).isEqualTo(4900);
     }
@@ -47,7 +57,8 @@ public class VendingMachineTest {
     @DisplayName("잔돈을 최소 동전으로 반환하는 기능")
     @Test
     void convertBalance() {
-        vendingMachine.insertMoney(Money.from("900"));
+        Money insertedMoney = Money.from("900");
+        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins, insertedMoney);
 
         assertThat(vendingMachine.convertBalanceToCoins())
                 .containsEntry(Coin.COIN_500, 1)
