@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import vendingmachine.model.Money;
 
 import java.util.List;
-import java.util.Map;
-
 
 public class CoinConverterTest {
 
