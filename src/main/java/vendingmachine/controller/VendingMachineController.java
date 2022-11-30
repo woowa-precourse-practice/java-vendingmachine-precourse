@@ -23,25 +23,74 @@ public class VendingMachineController {
     }
 
     public void run() {
-        Money money = inputView.readHoldingMoney();
-        CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
-        List<Coin> coins = converter.convert(money);
-        HoldingCoins holdingCoins = HoldingCoins.from(coins);
+        HoldingCoins holdingCoins = getHoldingCoins();
 
         outputView.printHoldingCoins(holdingCoins);
 
-        Products products = inputView.readProducts();
-        Money insertedMoney = inputView.readInsertedMoney();
-
-        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins);
-        vendingMachine.insertMoney(insertedMoney);
+        VendingMachine vendingMachine = initVendingMachine(holdingCoins);
 
         while (vendingMachine.purchasable()) {
-            outputView.printInsertedMoney(vendingMachine);
-            String productName = inputView.readProductName();
-            vendingMachine.purchase(productName);
+            purchaseProduct(vendingMachine);
         }
         outputView.printInsertedMoney(vendingMachine);
         outputView.printBalanceCoin(vendingMachine.convertBalanceToCoins());
+    }
+
+    private VendingMachine initVendingMachine(HoldingCoins holdingCoins) {
+        Products products = readProducts();
+        Money insertedMoney = readInsertedMoney();
+
+        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins);
+        vendingMachine.insertMoney(insertedMoney);
+        return vendingMachine;
+    }
+
+    private void purchaseProduct(VendingMachine vendingMachine) {
+        outputView.printInsertedMoney(vendingMachine);
+        String productName = readProductName();
+        vendingMachine.purchase(productName);
+    }
+
+    private String readProductName() {
+        try {
+            return inputView.readProductName();
+        } catch (IllegalArgumentException error) {
+            outputView.printError(error);
+            return readProductName();
+        }
+    }
+
+    private Money readInsertedMoney() {
+        try {
+            return inputView.readInsertedMoney();
+        } catch (IllegalArgumentException error) {
+            outputView.printError(error);
+            return readInsertedMoney();
+        }
+    }
+
+    private Products readProducts() {
+        try {
+            return inputView.readProducts();
+        } catch (IllegalArgumentException error) {
+            outputView.printError(error);
+            return readProducts();
+        }
+    }
+
+    private HoldingCoins getHoldingCoins() {
+        CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
+        List<Coin> coins = converter.convert(readMoney());
+
+        return HoldingCoins.from(coins);
+    }
+
+    private Money readMoney() {
+        try {
+            return inputView.readHoldingMoney();
+        } catch (IllegalArgumentException error) {
+            outputView.printError(error);
+            return readMoney();
+        }
     }
 }

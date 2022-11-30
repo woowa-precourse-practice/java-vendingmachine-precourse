@@ -16,6 +16,7 @@ public class OutputView {
     private static final String INSERTED_MONEY_IS = "투입 금액: %d원\n";
     private static final String BALANCE_COIN_IS = "잔돈";
     private static final String BALANCE_INFO = "%d원 - %d개\n";
+    private static final String ERROR_PREFIX = "[ERROR] ";
 
     public void printHoldingCoins(HoldingCoins holdingCoins) {
         System.out.println(HOLDING_COINS_INTRO);
@@ -37,5 +38,10 @@ public class OutputView {
                 .forEach(coin -> message.append(String.format(BALANCE_INFO, coin.getAmount(), coinsOfBalance.get(coin))));
 
         System.out.println(message);
+    }
+
+    public void printError(IllegalArgumentException error) {
+        System.out.print(ERROR_PREFIX);
+        System.out.println(error.getMessage());
     }
 }
