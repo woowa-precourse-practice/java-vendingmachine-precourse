@@ -4,6 +4,8 @@ import vendingmachine.Coin;
 import vendingmachine.model.HoldingCoins;
 import vendingmachine.model.VendingMachine;
 
+import java.util.Map;
+
 public class OutputView {
 
     private static final String HOLDING_COINS_INTRO = "자판기가 보유한 동전";
@@ -12,6 +14,8 @@ public class OutputView {
     private static final String COIN_50_STATISTIC = "50원 - %d개\n";
     private static final String COIN_10_STATISTIC = "10원 - %d개\n";
     private static final String INSERTED_MONEY_IS = "투입 금액: ";
+    private static final String BALANCE_COIN_IS = "잔돈";
+    private static final String BALANCE_INFO = "%d원 - %d개\n";
 
     public void printHoldingCoins(HoldingCoins holdingCoins) {
         System.out.println(HOLDING_COINS_INTRO);
@@ -24,5 +28,15 @@ public class OutputView {
     public void printInsertedMoney(VendingMachine vendingMachine) {
         System.out.print(INSERTED_MONEY_IS);
         System.out.println(vendingMachine.getInsertedMoney());
+    }
+
+    public void printBalanceCoin(Map<Coin, Integer> coinsOfBalance) {
+        System.out.println(BALANCE_COIN_IS);
+
+        StringBuilder message = new StringBuilder();
+        coinsOfBalance.keySet()
+                .forEach(coin -> message.append(BALANCE_INFO, coin.getAmount(), coinsOfBalance.get(coin)));
+
+        System.out.println(message);
     }
 }
