@@ -10,6 +10,9 @@ public class Product {
     private static final int CONTENTS_SIZE = 3;
     private static final int FIRST_LETTER = 0;
     private static final int BEGIN_INDEX = 1;
+    private static final int NAME_INDEX = 0;
+    private static final int PRICE_INDEX = 1;
+    private static final int QUANTITY_INDEX = 2;
 
     private final String name;
     private final Price price;
@@ -19,9 +22,9 @@ public class Product {
         validate(product);
         String[] contents = divideContents(product);
 
-        this.name = contents[0];
-        this.price = Price.from(contents[1]);
-        this.quantity = Quantity.from(contents[2]);
+        this.name = contents[NAME_INDEX];
+        this.price = Price.from(contents[PRICE_INDEX]);
+        this.quantity = Quantity.from(contents[QUANTITY_INDEX]);
     }
 
     private void validate(String product) {
