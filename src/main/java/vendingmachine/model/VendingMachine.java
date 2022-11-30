@@ -9,7 +9,7 @@ public class VendingMachine {
 
     private final Products products;
     private final HoldingCoins holdingCoins;
-    private Money insertedMoney;
+    private final Money insertedMoney;
 
     public VendingMachine(Products products, HoldingCoins holdingCoins, Money insertedMoney) {
         this.products = products;
