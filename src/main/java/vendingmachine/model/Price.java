@@ -9,13 +9,13 @@ public class Price {
     private static final int MIN_PRICE_UNIT = 10;
     private static final int DIVIDED = 0;
 
-    private final int price;
+    private final int amount;
 
     public Price(String input) {
         int price = parseInt(input);
         validate(price);
 
-        this.price = price;
+        this.amount = price;
     }
 
     private void validate(int price) {
@@ -49,5 +49,13 @@ public class Price {
 
     public static Price from(String price) {
         return new Price(price);
+    }
+
+    public boolean isAvailable(Money money) {
+        return money.isAvailable(amount);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

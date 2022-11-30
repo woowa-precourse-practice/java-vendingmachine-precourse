@@ -65,4 +65,20 @@ public class Product {
     public boolean is(String name) {
         return this.name.equals(name);
     }
+
+    public boolean isAvailable(Money money) {
+        return quantity.hasStock() && price.isAvailable(money);
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void decreaseQuantity() {
+        quantity.decrease();
+    }
+
+    public int getQuantity() {
+        return quantity.getQuantity();
+    }
 }

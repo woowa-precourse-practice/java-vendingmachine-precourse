@@ -8,12 +8,12 @@ public class Money {
     private static final String INVALID_MONEY_RANGE = "금액은 마이너스로 입력할 수 없습니다.";
     private static final int NO_MONEY = 0;
 
-    private int money;
+    private int amount;
 
     public Money(String input) {
         int money = parseInt(input);
         validate(money);
-        this.money = money;
+        this.amount = money;
     }
 
     private void validate(int money) {
@@ -39,14 +39,26 @@ public class Money {
     }
 
     public boolean convertable() {
-        return money >= Coin.COIN_10.getAmount();
+        return amount >= Coin.COIN_10.getAmount();
     }
 
     public boolean convertable(int amount) {
-        return money >= amount;
+        return this.amount >= amount;
     }
 
     public void decrease(int amount) {
-        money -= amount;
+        this.amount -= amount;
+    }
+
+    public boolean isAvailable(int amount) {
+        return this.amount >= amount;
+    }
+
+    public void deduct(Price price) {
+        amount -= price.getAmount();
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
