@@ -70,8 +70,8 @@ public class Product {
         return quantity.hasStock() && price.isAvailable(money);
     }
 
-    public Price getPrice() {
-        return price;
+    public int getPrice() {
+        return price.getAmount();
     }
 
     public void decreaseQuantity() {

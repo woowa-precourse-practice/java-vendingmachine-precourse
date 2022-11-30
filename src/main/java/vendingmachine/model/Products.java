@@ -31,7 +31,7 @@ public class Products {
 
     public int getCheapestPrice() {
         return products.stream()
-                .mapToInt(product -> product.getPrice().getAmount())
+                .mapToInt(product -> product.getPrice())
                 .min()
                 .getAsInt();
     }

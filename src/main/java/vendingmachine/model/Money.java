@@ -55,13 +55,13 @@ public class Money {
         return this.amount >= amount;
     }
 
-    public void deduct(Price price) {
+    public void deduct(int price) {
         checkAvailable(price);
-        amount -= price.getAmount();
+        amount -= price;
     }
 
-    private void checkAvailable(Price price) {
-        if (amount < price.getAmount()) {
+    private void checkAvailable(int price) {
+        if (amount < price) {
             throw new IllegalArgumentException(INSUFFICIENT_BALANCE);
         }
     }
