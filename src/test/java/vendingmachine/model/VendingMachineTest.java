@@ -2,8 +2,11 @@ package vendingmachine.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import vendingmachine.Coin;
 import vendingmachine.CoinConverter;
 import vendingmachine.TestCoinAmountGenerator;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,5 +44,25 @@ public class VendingMachineTest {
 
 
         assertThat(vendingMachine.getInsertedMoney()).isEqualTo(4900);
+    }
+
+    @DisplayName("잔돈을 최소 동전으로 반환하는 기능")
+    @Test
+    void convertBalance() {
+        Products products = Products.of("[사과,100,20];[배,500,10]");
+        CoinConverter converter = new CoinConverter(new TestCoinAmountGenerator());
+        HoldingCoins holdingCoins = HoldingCoins.from(converter.convert(Money.from("760")));
+
+        VendingMachine vendingMachine = VendingMachine.of(products, holdingCoins);
+
+        vendingMachine.insertMoney(Money.from("900"));
+
+        Map<Coin, Integer> convertedCoins = vendingMachine.convertBalanceToCoins();
+
+        assertThat(convertedCoins)
+                .containsEntry(Coin.COIN_500, 1)
+                .containsEntry(Coin.COIN_100, 2)
+                .containsEntry(Coin.COIN_50, 1)
+                .containsEntry(Coin.COIN_10, 1);
     }
 }

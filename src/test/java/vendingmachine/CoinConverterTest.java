@@ -28,17 +28,4 @@ public class CoinConverterTest {
                         Coin.COIN_10
                 );
     }
-
-    @DisplayName("금액을 최소한의 동전으로 변환하는 기능 추가")
-    @Test
-    void convertOptimalTest() {
-        CoinAmountGenerator amountGenerator = new TestCoinAmountGenerator();
-        CoinConverter converter = new CoinConverter(amountGenerator);
-
-        Map<Coin, Integer> convertCounts = converter.convertOptimal(Money.from("900"));
-
-        Assertions.assertThat(convertCounts)
-                .containsEntry(Coin.COIN_500, 1)
-                .containsEntry(Coin.COIN_100, 4);
-    }
 }
