@@ -2,6 +2,7 @@ package vendingmachine.model;
 
 import vendingmachine.Coin;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HoldingCoins {
@@ -14,5 +15,9 @@ public class HoldingCoins {
 
     public static HoldingCoins from(List<Coin> coins) {
         return new HoldingCoins(coins);
+    }
+
+    public int count(Coin coin) {
+        return Collections.frequency(coins, coin);
     }
 }
