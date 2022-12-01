@@ -1,5 +1,7 @@
 package vendingmachine.model;
 
+import vendingmachine.utils.NumberUtils;
+
 public class Quantity {
 
     private static final int NO_STOCK = 0;
@@ -8,7 +10,7 @@ public class Quantity {
     private int quantity;
 
     public Quantity(String quantity) {
-        this.quantity = Integer.parseInt(quantity);
+        this.quantity = NumberUtils.parseInt(quantity);
     }
 
     public static Quantity from(String quantity) {

@@ -1,8 +1,9 @@
 package vendingmachine.model;
 
+import vendingmachine.utils.NumberUtils;
+
 public class Price {
 
-    private static final String NON_NUMERIC = "숫자만 입력할 수 있습니다.";
     private static final String INVALID_PRICE_RANGE = "가격은 100원 이상이어야 합니다.";
     private static final String INVALID_PRICE_UNIT = "가격은 최소 10원 단위로 입력해주세요.";
     private static final int MIN_PRICE = 100;
@@ -12,7 +13,7 @@ public class Price {
     private final int amount;
 
     public Price(String input) {
-        int price = parseInt(input);
+        int price = NumberUtils.parseInt(input);
         validate(price);
 
         this.amount = price;
@@ -30,21 +31,13 @@ public class Price {
     }
 
     private void validateUnit(int price) {
-        if (hasValidUnit(price)) {
+        if (hasInvalidUnit(price)) {
             throw new IllegalArgumentException(INVALID_PRICE_UNIT);
         }
     }
 
-    private boolean hasValidUnit(int price) {
+    private boolean hasInvalidUnit(int price) {
         return price % MIN_PRICE_UNIT != DIVIDED;
-    }
-
-    private int parseInt(String money) {
-        try {
-            return Integer.parseInt(money);
-        } catch (NumberFormatException error) {
-            throw new IllegalArgumentException(NON_NUMERIC);
-        }
     }
 
     public static Price from(String price) {
