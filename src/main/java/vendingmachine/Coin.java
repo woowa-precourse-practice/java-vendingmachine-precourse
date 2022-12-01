@@ -10,13 +10,14 @@ public enum Coin {
     COIN_50(50),
     COIN_10(10);
 
+    private static final String NO_SUCH_AMOUNT_COINS = "적절하지 않은 동전 금액입니다.";
+
     private final int amount;
 
     Coin(final int amount) {
         this.amount = amount;
     }
 
-    // 추가 기능 구현
     public static List<Integer> amounts() {
         return Arrays.stream(values())
                 .map(Coin::getAmount)
@@ -27,7 +28,7 @@ public enum Coin {
         return Arrays.stream(values())
                 .filter(coin -> coin.isSameAmount(amount))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException(NO_SUCH_AMOUNT_COINS));
     }
 
     private boolean isSameAmount(int amount) {
