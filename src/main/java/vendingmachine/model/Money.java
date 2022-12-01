@@ -32,7 +32,7 @@ public class Money {
     }
 
     public boolean convertable() {
-        return amount >= Coin.COIN_10.getAmount();
+        return amount >= Coin.getMinAmount();
     }
 
     public boolean convertableWith(int amount) {

@@ -2,6 +2,7 @@ package vendingmachine;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public enum Coin {
@@ -29,6 +30,13 @@ public enum Coin {
                 .filter(coin -> coin.isSameAmount(amount))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NO_SUCH_AMOUNT_COINS));
+    }
+
+    public static int getMinAmount() {
+        return Arrays.stream(values())
+                .mapToInt(Coin::getAmount)
+                .min()
+                .orElseThrow(NoSuchElementException::new);
     }
 
     private boolean isSameAmount(int amount) {
