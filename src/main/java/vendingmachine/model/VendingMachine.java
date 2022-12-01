@@ -23,9 +23,8 @@ public class VendingMachine {
 
     public void purchase(String productName) {
         Product product = products.findByName(productName);
-        if (product.isAvailable(balance)) {
-            balance.deduct(product.getPrice());
-            product.decreaseQuantity();
+        if (product.isPurchasable(balance)) {
+            product.purchase(balance);
         }
     }
 
@@ -58,7 +57,7 @@ public class VendingMachine {
     }
 
     private boolean isConvertableBy(Coin coin) {
-        return balance.convertable(coin.getAmount());
+        return balance.convertableWith(coin.getAmount());
     }
 
     private int calculateConvertedAmount(Coin coin, int convertedCount) {
@@ -69,9 +68,6 @@ public class VendingMachine {
         int maxCountOfConversion = coin.countConvertable(balance.getAmount());
         int holdingCount = holdingCoins.count(coin);
 
-        if (holdingCount >= maxCountOfConversion) {
-            return maxCountOfConversion;
-        }
-        return holdingCount;
+        return Math.min(holdingCount, maxCountOfConversion);
     }
 }

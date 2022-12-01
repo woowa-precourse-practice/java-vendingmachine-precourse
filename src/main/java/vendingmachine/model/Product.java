@@ -69,7 +69,7 @@ public class Product {
         return this.name.equals(name);
     }
 
-    public boolean isAvailable(Money money) {
+    public boolean isPurchasable(Money money) {
         return quantity.hasStock() && price.isAvailable(money);
     }
 
@@ -77,11 +77,12 @@ public class Product {
         return price.getAmount();
     }
 
-    public void decreaseQuantity() {
-        quantity.decrease();
-    }
-
     public boolean hasStock() {
         return quantity.hasStock();
+    }
+
+    public void purchase(Money balance) {
+        balance.deduct(price.getAmount());
+        quantity.decrease();
     }
 }

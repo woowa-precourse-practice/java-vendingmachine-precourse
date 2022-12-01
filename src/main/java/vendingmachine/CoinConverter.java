@@ -16,12 +16,16 @@ public class CoinConverter {
     public List<Coin> convert(Money money) {
         List<Coin> coins = new ArrayList<>();
         while (money.convertable()) {
-            int amount = amountGenerator.generate();
-            if (money.convertable(amount)) {
-                money.decrease(amount);
-                coins.add(Coin.from(amount));
-            }
+            toCoins(money, coins);
         }
         return coins;
+    }
+
+    private void toCoins(Money money, List<Coin> coins) {
+        int amount = amountGenerator.generate();
+        if (money.convertableWith(amount)) {
+            money.decrease(amount);
+            coins.add(Coin.from(amount));
+        }
     }
 }
