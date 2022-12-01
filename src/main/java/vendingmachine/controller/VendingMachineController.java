@@ -24,33 +24,22 @@ public class VendingMachineController {
     }
 
     public void run() {
-        HoldingCoins holdingCoins = getHoldingCoins();
-
-        outputView.printHoldingCoins(holdingCoins);
-
+        HoldingCoins holdingCoins = initHoldingCoins();
         VendingMachine vendingMachine = initVendingMachine(holdingCoins);
 
-        while (vendingMachine.purchasable()) {
-            purchaseProduct(vendingMachine);
-        }
-        outputView.printInsertedMoney(vendingMachine);
-        outputView.printBalanceCoin(vendingMachine.convertBalanceToCoins());
+        purchase(vendingMachine);
+
+        printResult(vendingMachine);
     }
 
-    private VendingMachine initVendingMachine(HoldingCoins holdingCoins) {
-        Products products = read(inputView::readProducts);
-        Money insertedMoney = read(inputView::readInsertedMoney);
+    private HoldingCoins initHoldingCoins() {
+        HoldingCoins holdingCoins = readHoldingCoins();
+        outputView.printHoldingCoins(holdingCoins);
 
-        return VendingMachine.of(products, holdingCoins, insertedMoney);
+        return holdingCoins;
     }
 
-    private void purchaseProduct(VendingMachine vendingMachine) {
-        outputView.printInsertedMoney(vendingMachine);
-        String productName = read(inputView::readProductName);
-        vendingMachine.purchase(productName);
-    }
-
-    private HoldingCoins getHoldingCoins() {
+    private HoldingCoins readHoldingCoins() {
         Money money = read(inputView::readHoldingMoney);
         List<Coin> coins = toCoins(money);
 
@@ -61,6 +50,30 @@ public class VendingMachineController {
         CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
 
         return converter.convert(money);
+    }
+
+    private VendingMachine initVendingMachine(HoldingCoins holdingCoins) {
+        Products products = read(inputView::readProducts);
+        Money insertedMoney = read(inputView::readInsertedMoney);
+
+        return VendingMachine.of(products, holdingCoins, insertedMoney);
+    }
+
+    private void purchase(VendingMachine vendingMachine) {
+        while (vendingMachine.purchasable()) {
+            purchaseProduct(vendingMachine);
+        }
+    }
+
+    private void purchaseProduct(VendingMachine vendingMachine) {
+        outputView.printInsertedMoney(vendingMachine);
+        String productName = read(inputView::readProductName);
+        vendingMachine.purchase(productName);
+    }
+
+    private void printResult(VendingMachine vendingMachine) {
+        outputView.printInsertedMoney(vendingMachine);
+        outputView.printBalanceCoin(vendingMachine.convertBalanceToCoins());
     }
 
     private <T> T read(Supplier<T> supplier) {
