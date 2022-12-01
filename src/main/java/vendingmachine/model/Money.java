@@ -1,6 +1,5 @@
 package vendingmachine.model;
 
-import vendingmachine.Coin;
 import vendingmachine.utils.NumberUtils;
 
 public class Money {

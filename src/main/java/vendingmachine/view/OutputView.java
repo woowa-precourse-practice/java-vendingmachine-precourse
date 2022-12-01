@@ -1,6 +1,6 @@
 package vendingmachine.view;
 
-import vendingmachine.Coin;
+import vendingmachine.model.Coin;
 import vendingmachine.model.HoldingCoins;
 import vendingmachine.model.VendingMachine;
 

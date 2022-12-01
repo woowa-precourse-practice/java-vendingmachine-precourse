@@ -1,7 +1,5 @@
 package vendingmachine.model;
 
-import vendingmachine.Coin;
-
 import java.util.Collections;
 import java.util.List;
 

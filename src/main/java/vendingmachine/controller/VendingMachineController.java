@@ -1,8 +1,8 @@
 package vendingmachine.controller;
 
-import vendingmachine.Coin;
 import vendingmachine.CoinConverter;
 import vendingmachine.RandomCoinAmountGenerator;
+import vendingmachine.model.Coin;
 import vendingmachine.model.HoldingCoins;
 import vendingmachine.model.Money;
 import vendingmachine.model.Products;
@@ -57,7 +57,7 @@ public class VendingMachineController {
         return HoldingCoins.from(coins);
     }
 
-    private  List<Coin> toCoins(Money money) {
+    private List<Coin> toCoins(Money money) {
         CoinConverter converter = new CoinConverter(new RandomCoinAmountGenerator());
 
         return converter.convert(money);

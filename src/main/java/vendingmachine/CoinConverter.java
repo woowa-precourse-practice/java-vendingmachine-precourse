@@ -1,5 +1,6 @@
 package vendingmachine;
 
+import vendingmachine.model.Coin;
 import vendingmachine.model.Money;
 
 import java.util.ArrayList;

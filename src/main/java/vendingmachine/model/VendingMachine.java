@@ -1,7 +1,5 @@
 package vendingmachine.model;
 
-import vendingmachine.Coin;
-
 import java.util.HashMap;
 import java.util.Map;
 

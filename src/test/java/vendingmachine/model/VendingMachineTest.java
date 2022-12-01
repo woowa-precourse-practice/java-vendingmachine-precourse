@@ -3,7 +3,6 @@ package vendingmachine.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import vendingmachine.Coin;
 import vendingmachine.CoinConverter;
 import vendingmachine.TestCoinAmountGenerator;
 
