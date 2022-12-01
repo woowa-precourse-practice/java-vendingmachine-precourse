@@ -15,7 +15,7 @@ public class OutputView {
     private static final String COIN_10_STATISTIC = "10원 - %d개\n";
     private static final String INSERTED_MONEY_IS = "투입 금액: %d원\n";
     private static final String BALANCE_COIN_IS = "잔돈";
-    private static final String BALANCE_INFO = "%d원 - %d개\n";
+    private static final String BALANCE_COIN_INFO = "%d원 - %d개\n";
     private static final String ERROR_PREFIX = "[ERROR] ";
 
     public void printHoldingCoins(HoldingCoins holdingCoins) {
@@ -35,7 +35,7 @@ public class OutputView {
 
         StringBuilder message = new StringBuilder();
         coinsOfBalance.keySet()
-                .forEach(coin -> message.append(String.format(BALANCE_INFO, coin.getAmount(), coinsOfBalance.get(coin))));
+                .forEach(coin -> message.append(String.format(BALANCE_COIN_INFO, coin.getAmount(), coinsOfBalance.get(coin))));
 
         System.out.println(message);
     }
