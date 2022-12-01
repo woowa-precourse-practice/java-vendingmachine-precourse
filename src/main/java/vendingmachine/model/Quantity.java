@@ -29,8 +29,4 @@ public class Quantity {
             throw new IllegalArgumentException(OUT_OF_STOCK);
         }
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
 }
