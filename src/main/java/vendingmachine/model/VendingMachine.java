@@ -1,5 +1,6 @@
 package vendingmachine.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,11 +39,10 @@ public class VendingMachine {
 
     public Map<Coin, Integer> convertBalanceToCoins() {
         Map<Coin, Integer> convertedCoins = new HashMap<>();
-        for (Coin coin : Coin.values()) {
-            if (isConvertableBy(coin)) {
-                convert(convertedCoins, coin);
-            }
-        }
+        Arrays.stream(Coin.values())
+                .filter(this::isConvertableBy)
+                .forEach(coin -> convert(convertedCoins, coin));
+
         return convertedCoins;
     }
 
