@@ -32,6 +32,10 @@ public class Money {
         return Coin.convertable(amount);
     }
 
+    public boolean isAffordable(int price) {
+        return this.amount >= price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

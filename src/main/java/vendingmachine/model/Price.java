@@ -2,7 +2,7 @@ package vendingmachine.model;
 
 import vendingmachine.utils.NumberUtils;
 
-public class Price {
+public class Price implements Comparable<Price> {
 
     private static final int PRICE_LOWER_BOUND = 100;
     private static final int PRICE_MIN_UNIT = 10;
@@ -40,5 +40,10 @@ public class Price {
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public int compareTo(Price other) {
+        return this.amount - other.amount;
     }
 }

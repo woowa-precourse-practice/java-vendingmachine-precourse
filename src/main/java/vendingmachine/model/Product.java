@@ -3,7 +3,7 @@ package vendingmachine.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class Product {
+public class Product implements Comparable<Product> {
 
     private static final int NAME_INDEX = 0;
     private static final int PRICE_INDEX = 1;
@@ -57,5 +57,14 @@ public class Product {
 
     public int getPrice() {
         return price.getAmount();
+    }
+
+    public boolean isOutOfStock() {
+        return quantity.isEmpty();
+    }
+
+    @Override
+    public int compareTo(Product other) {
+        return this.price.compareTo(other.price);
     }
 }

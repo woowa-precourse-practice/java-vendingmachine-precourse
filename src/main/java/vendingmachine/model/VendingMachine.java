@@ -26,4 +26,16 @@ public class VendingMachine {
         product.decreaseQuantity();
         balance.decreaseBy(product.getPrice());
     }
+
+    public boolean isPurchasable() {
+        return isAffordable() || hasStock();
+    }
+
+    private boolean hasStock() {
+        return products.hasStock();
+    }
+
+    private boolean isAffordable() {
+        return balance.isAffordable(products.getCheapestPrice());
+    }
 }

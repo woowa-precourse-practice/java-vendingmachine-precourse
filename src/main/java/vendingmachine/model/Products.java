@@ -80,4 +80,16 @@ public class Products {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NO_SUCH_PRODUCT_MESSAGE));
     }
+
+    public int getCheapestPrice() {
+        return products.stream()
+                .min(Product::compareTo)
+                .get()
+                .getPrice();
+    }
+
+    public boolean hasStock() {
+        return products.stream()
+                .noneMatch(Product::isOutOfStock);
+    }
 }

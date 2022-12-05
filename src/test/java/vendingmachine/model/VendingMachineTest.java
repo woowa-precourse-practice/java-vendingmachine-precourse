@@ -53,4 +53,11 @@ public class VendingMachineTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> vendingMachine.buy(Name.from("사과")));
     }
+
+    @Test
+    void 구매_가능_여부를_확인할_수_있다() {
+        vendingMachine.buy(Name.from("배"));
+
+        assertThat(vendingMachine.isPurchasable()).isFalse();
+    }
 }
