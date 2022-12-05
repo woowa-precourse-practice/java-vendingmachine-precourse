@@ -1,22 +1,38 @@
 package vendingmachine.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Product {
 
     private static final int NAME_INDEX = 0;
     private static final int PRICE_INDEX = 1;
     private static final int QUANTITY_INDEX = 2;
+    private static final String MISSING_PRODUCT_INFORMATION = "상품 정보가 누락되었습니다.";
+    private static final int PRODUCT_INFORMATION_SIZE = 3;
+    private static final String INFORMATION_REGEX = ",";
 
     private final Name name;
     private final Price price;
     private final Quantity quantity;
 
     public Product(String input) {
-        String[] productInformation = input.split(",");
+        List<String> productInformation = Arrays.asList(input.split(INFORMATION_REGEX));
+        validate(productInformation);
 
-        name = Name.from(productInformation[NAME_INDEX]);
-        price = Price.from(productInformation[PRICE_INDEX]);
-        quantity = Quantity.from(productInformation[QUANTITY_INDEX]);
+        name = Name.from(productInformation.get(NAME_INDEX));
+        price = Price.from(productInformation.get(PRICE_INDEX));
+        quantity = Quantity.from(productInformation.get(QUANTITY_INDEX));
+    }
 
+    private void validate(List<String> productInformation) {
+        if (hasValidSize(productInformation)) {
+            throw new IllegalArgumentException(MISSING_PRODUCT_INFORMATION);
+        }
+    }
+
+    private boolean hasValidSize(List<String> productInformation) {
+        return productInformation.size() != PRODUCT_INFORMATION_SIZE;
     }
 
     public static Product of(String input) {
