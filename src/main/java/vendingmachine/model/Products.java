@@ -12,6 +12,7 @@ public class Products {
     private static final String BLANK = "";
     private static final String PRODUCTS_FRONT_WRAPPER = "[";
     private static final String DUPLICATED_PRODUCT_NAME = "상품명은 서로 중복될 수 없습니다.";
+    private static final String NO_SUCH_PRODUCT_MESSAGE = "해당 상품이 존재하지 않습니다.";
 
     private final List<Product> products;
 
@@ -71,5 +72,12 @@ public class Products {
 
     public static Products from(String products) {
         return new Products(products);
+    }
+
+    public Product findByName(Name name) {
+        return products.stream()
+                .filter(product -> product.hasSameName(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(NO_SUCH_PRODUCT_MESSAGE));
     }
 }

@@ -4,6 +4,8 @@ import vendingmachine.utils.NumberUtils;
 
 public class Quantity {
 
+    private static final int OUT_OF_STOCK = 0;
+
     private int quantity;
 
     private Quantity(int quantity) {
@@ -12,5 +14,13 @@ public class Quantity {
 
     public static Quantity from(String quantity) {
         return new Quantity(NumberUtils.parseInt(quantity));
+    }
+
+    public boolean isEmpty() {
+        return quantity == OUT_OF_STOCK;
+    }
+
+    public void decrease() {
+        quantity--;
     }
 }

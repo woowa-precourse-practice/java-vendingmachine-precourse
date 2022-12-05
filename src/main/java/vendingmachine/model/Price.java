@@ -37,4 +37,8 @@ public class Price {
     public static Price from(String amount) {
         return new Price(NumberUtils.parseInt(amount));
     }
+
+    public int getAmount() {
+        return amount;
+    }
 }

@@ -11,6 +11,7 @@ public class Product {
     private static final String MISSING_PRODUCT_INFORMATION = "상품 정보가 누락되었습니다.";
     private static final int PRODUCT_INFORMATION_SIZE = 3;
     private static final String INFORMATION_REGEX = ",";
+    private static final String OUT_OF_STOCK_MESSAGE = "재고가 없습니다.";
 
     private final Name name;
     private final Price price;
@@ -41,5 +42,20 @@ public class Product {
 
     public Name getName() {
         return name;
+    }
+
+    public boolean hasSameName(Name name) {
+        return this.name.equals(name);
+    }
+
+    public void decreaseQuantity() {
+        if (quantity.isEmpty()) {
+            throw new IllegalArgumentException(OUT_OF_STOCK_MESSAGE);
+        }
+        quantity.decrease();
+    }
+
+    public int getPrice() {
+        return price.getAmount();
     }
 }
