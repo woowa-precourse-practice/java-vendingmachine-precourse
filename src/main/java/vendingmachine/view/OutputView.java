@@ -11,7 +11,7 @@ public class OutputView {
 
     private static final String NEW_LINE = "\n";
     private static final String RESULT_FORMAT = "%d원 - %d개";
-    private static final String BALANCE_IS = "투입금액: %d원";
+    private static final String BALANCE_IS = "투입금액: %s원";
 
     public void printHoldingCoins(HoldingCoins holdingCoins) {
         System.out.println(getStatisticOf(holdingCoins));
