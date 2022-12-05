@@ -36,6 +36,10 @@ public class Money {
         return this.amount >= price;
     }
 
+    public int countConverted(Coin coin) {
+        return amount / coin.getAmount();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
