@@ -5,6 +5,7 @@ import vendingmachine.model.HoldingCoins;
 import vendingmachine.model.VendingMachine;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputView {
@@ -31,5 +32,15 @@ public class OutputView {
     public void printError(IllegalArgumentException error) {
         System.out.print(ERROR_PREFIX);
         System.out.println(error.getMessage());
+    }
+
+    public void printBalanceCoins(Map<Coin, Integer> coins) {
+        System.out.println(getCoinsInfo(coins));
+    }
+
+    private String getCoinsInfo(Map<Coin, Integer> coins) {
+        return coins.keySet().stream()
+                .map(coin -> String.format(RESULT_FORMAT, coin.getAmount(), coins.get(coin)))
+                .collect(Collectors.joining(NEW_LINE));
     }
 }
