@@ -1,6 +1,7 @@
 package vendingmachine.controller;
 
 import vendingmachine.model.CoinAmountGenerator;
+import vendingmachine.model.CoinMaker;
 import vendingmachine.model.HoldingCoins;
 import vendingmachine.model.Money;
 import vendingmachine.model.Name;
@@ -37,8 +38,9 @@ public class VendingMachineController {
     private HoldingCoins getHoldingCoins() {
         Money money = checkError(inputView::readMoney);
         CoinAmountGenerator amountGenerator = new RandomCoinAmountGenerator();
+        CoinMaker coinMaker = new CoinMaker(amountGenerator);
 
-        return HoldingCoins.from(money, amountGenerator);
+        return HoldingCoins.from(coinMaker.makeCoins(money));
     }
 
     public void run() {

@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -15,7 +16,11 @@ public class HoldingCoinsTest {
     @ParameterizedTest(name = "동전: {0}, 갯수: {1}")
     @MethodSource("coinAndExpectedCountSource")
     void 보유_금액을_동전으로_바꿀_수_있다(Coin coin, int expected) {
-        HoldingCoins holdingCoins = HoldingCoins.from(Money.from("2000"), new TestCoinAmountGenerator());
+        TestCoinAmountGenerator testCoinAmountGenerator = new TestCoinAmountGenerator();
+        CoinMaker coinMaker = new CoinMaker(testCoinAmountGenerator);
+        List<Coin> coins = coinMaker.makeCoins(Money.from("2000"));
+
+        HoldingCoins holdingCoins = HoldingCoins.from(coins);
 
         Assertions.assertThat(holdingCoins.count(coin)).isEqualTo(expected);
     }

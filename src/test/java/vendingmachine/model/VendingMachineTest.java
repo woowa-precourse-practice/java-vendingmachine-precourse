@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
@@ -17,7 +19,11 @@ public class VendingMachineTest {
 
     @BeforeEach
     void setUp() {
-        HoldingCoins holdingCoins = HoldingCoins.from(Money.from("1000"), new TestCoinAmountGenerator());
+        TestCoinAmountGenerator testCoinAmountGenerator = new TestCoinAmountGenerator();
+        CoinMaker coinMaker = new CoinMaker(testCoinAmountGenerator);
+        List<Coin> coins = coinMaker.makeCoins(Money.from("1000"));
+
+        HoldingCoins holdingCoins = HoldingCoins.from(coins);
         Products products = Products.from("[사과,100,1];[배,150,1]");
         Money balance = Money.from("200");
 

@@ -1,6 +1,5 @@
 package vendingmachine.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,15 +11,7 @@ public class HoldingCoins {
         this.coins = coins;
     }
 
-    public static HoldingCoins from(Money money, CoinAmountGenerator amountGenerator) {
-        List<Coin> coins = new ArrayList<>();
-        while (money.convertable()) {
-            int amount = amountGenerator.generate();
-            if (money.convertableBy(amount)) {
-                money.decreaseBy(amount);
-                coins.add(Coin.create(amount));
-            }
-        }
+    public static HoldingCoins from(List<Coin> coins) {
         return new HoldingCoins(coins);
     }
 
