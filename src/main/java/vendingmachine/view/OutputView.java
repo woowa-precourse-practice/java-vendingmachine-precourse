@@ -12,7 +12,7 @@ public class OutputView {
 
     private static final String NEW_LINE = "\n";
     private static final String RESULT_FORMAT = "%d원 - %d개";
-    private static final String BALANCE_IS = "투입 금액: %s원";
+    private static final String BALANCE_IS = "투입 금액: %s원\n";
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String HOLDING_COINS_ARE = "자판기가 보유한 동전";
 
@@ -28,7 +28,7 @@ public class OutputView {
     }
 
     public void printBalance(VendingMachine vendingMachine) {
-        System.out.println(String.format(BALANCE_IS, vendingMachine.getBalance()));
+        System.out.printf(BALANCE_IS, vendingMachine.getBalance());
     }
 
     public void printError(IllegalArgumentException error) {
