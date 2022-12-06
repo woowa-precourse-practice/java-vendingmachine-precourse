@@ -25,24 +25,27 @@ public class VendingMachineController {
     }
 
     private VendingMachine initVendingMachine() {
-        Money money = inputView.readMoney();
-        CoinAmountGenerator amountGenerator = new RandomCoinAmountGenerator();
-        HoldingCoins holdingCoins = HoldingCoins.from(money, amountGenerator);
-
+        HoldingCoins holdingCoins = getHoldingCoins();
         outputView.printHoldingCoins(holdingCoins);
 
-        Products products = inputView.readProducts();
-
-        Money balance = inputView.readBalance();
+        Products products = checkError(inputView::readProducts);
+        Money balance = checkError(inputView::readBalance);
 
         return VendingMachine.of(holdingCoins, products, balance);
+    }
+
+    private HoldingCoins getHoldingCoins() {
+        Money money = checkError(inputView::readMoney);
+        CoinAmountGenerator amountGenerator = new RandomCoinAmountGenerator();
+
+        return HoldingCoins.from(money, amountGenerator);
     }
 
     public void run() {
         while (vendingMachine.isPurchasable()) {
             outputView.printBalance(vendingMachine);
 
-            Name name = inputView.readName();
+            Name name = checkError(inputView::readName);
             vendingMachine.buy(name);
         }
         outputView.printBalance(vendingMachine);
