@@ -6,15 +6,24 @@ import java.util.Objects;
 
 public class Money {
 
-    private static final String NOT_AFFORDAABLE_MESSAGE = "잔액이 부족합니다.";
+    private static final String NOT_AFFORDABLE_MESSAGE = "잔액이 부족합니다.";
+    private static final String INVALID_NEGATIVE_PRICE = "금액은 음수가 될 수 없습니다";
+    private static final int PRICE_LOWER_BOUND = 0;
     private int amount;
 
-    public Money(String amount) {
-        this.amount = NumberUtils.parseInt(amount);
+    public Money(int amount) {
+        validate(amount);
+        this.amount = amount;
+    }
+
+    private void validate(int amount) {
+        if (amount < PRICE_LOWER_BOUND) {
+            throw new IllegalArgumentException(INVALID_NEGATIVE_PRICE);
+        }
     }
 
     public static Money from(String amount) {
-        return new Money(amount);
+        return new Money(NumberUtils.parseInt(amount));
     }
 
     public boolean convertableBy(int amount) {
@@ -23,7 +32,7 @@ public class Money {
 
     public void decreaseBy(int amount) {
         if (this.amount < amount) {
-            throw new IllegalArgumentException(NOT_AFFORDAABLE_MESSAGE);
+            throw new IllegalArgumentException(NOT_AFFORDABLE_MESSAGE);
         }
         this.amount -= amount;
     }
