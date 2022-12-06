@@ -1,4 +1,60 @@
 package vendingmachine.controller;
 
+import vendingmachine.model.CoinAmountGenerator;
+import vendingmachine.model.HoldingCoins;
+import vendingmachine.model.Money;
+import vendingmachine.model.Name;
+import vendingmachine.model.Products;
+import vendingmachine.model.RandomCoinAmountGenerator;
+import vendingmachine.model.VendingMachine;
+import vendingmachine.view.InputView;
+import vendingmachine.view.OutputView;
+
+import java.util.function.Supplier;
+
 public class VendingMachineController {
+
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final VendingMachine vendingMachine;
+
+    public VendingMachineController() {
+        inputView = new InputView();
+        outputView = new OutputView();
+        vendingMachine = initVendingMachine();
+    }
+
+    private VendingMachine initVendingMachine() {
+        Money money = inputView.readMoney();
+        CoinAmountGenerator amountGenerator = new RandomCoinAmountGenerator();
+        HoldingCoins holdingCoins = HoldingCoins.from(money, amountGenerator);
+
+        outputView.printHoldingCoins(holdingCoins);
+
+        Products products = inputView.readProducts();
+
+        Money balance = inputView.readBalance();
+
+        return VendingMachine.of(holdingCoins, products, balance);
+    }
+
+    public void run() {
+        while (vendingMachine.isPurchasable()) {
+            outputView.printBalance(vendingMachine);
+
+            Name name = inputView.readName();
+            vendingMachine.buy(name);
+        }
+        outputView.printBalance(vendingMachine);
+        outputView.printBalanceCoins(vendingMachine.changeBalance());
+    }
+
+    private <T> T checkError(Supplier<T> inputReader) {
+        try {
+            return inputReader.get();
+        } catch (IllegalArgumentException error) {
+            outputView.printError(error);
+            return checkError(inputReader);
+        }
+    }
 }
