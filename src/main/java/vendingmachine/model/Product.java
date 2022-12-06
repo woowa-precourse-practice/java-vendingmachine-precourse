@@ -15,7 +15,7 @@ public class Product implements Comparable<Product> {
 
     private final Name name;
     private final Price price;
-    private final Quantity quantity;
+    private Quantity quantity;
 
     public Product(String input) {
         List<String> productInformation = Arrays.asList(input.split(INFORMATION_REGEX));
@@ -52,7 +52,7 @@ public class Product implements Comparable<Product> {
         if (quantity.isEmpty()) {
             throw new IllegalArgumentException(OUT_OF_STOCK_MESSAGE);
         }
-        quantity.decrease();
+        this.quantity = quantity.decrease(Quantity.from("1"));
     }
 
     public int getPrice() {

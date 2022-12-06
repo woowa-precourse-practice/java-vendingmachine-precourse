@@ -8,7 +8,7 @@ public class Quantity {
     private static final String INVALID_NEGATIVE_QUANTITY = "수량은 음수로 입력할 수 없습니다.";
     private static final int QUANTITY_LOWER_BOUND = 0;
 
-    private int quantity;
+    private final int quantity;
 
     private Quantity(int quantity) {
         validate(quantity);
@@ -33,7 +33,7 @@ public class Quantity {
         return quantity == OUT_OF_STOCK;
     }
 
-    public void decrease() {
-        quantity--;
+    public Quantity decrease(Quantity decreased) {
+        return new Quantity(quantity - decreased.quantity);
     }
 }
