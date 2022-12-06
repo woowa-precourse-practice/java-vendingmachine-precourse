@@ -14,12 +14,16 @@ public class CoinMaker {
     public List<Coin> makeCoins(Money money) {
         List<Coin> coins = new ArrayList<>();
         while (money.convertable()) {
-            int amount = coinAmountGenerator.generate();
-            if (money.convertableBy(amount)) {
-                money.decreaseBy(amount);
-                coins.add(Coin.create(amount));
-            }
+            toCoins(money, coins);
         }
         return coins;
+    }
+
+    private void toCoins(Money money, List<Coin> coins) {
+        int amount = coinAmountGenerator.generate();
+        if (money.convertableBy(amount)) {
+            money.decreaseBy(amount);
+            coins.add(Coin.create(amount));
+        }
     }
 }
