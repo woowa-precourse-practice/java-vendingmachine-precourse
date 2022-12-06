@@ -31,7 +31,7 @@ public class VendingMachine {
     }
 
     public boolean isPurchasable() {
-        return isAffordable() || hasStock();
+        return isAffordable() && hasStock();
     }
 
     private boolean hasStock() {

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -16,8 +18,8 @@ public class VendingMachineTest {
     @BeforeEach
     void setUp() {
         HoldingCoins holdingCoins = HoldingCoins.from(Money.from("1000"), new TestCoinAmountGenerator());
-        Products products = Products.from("[사과,100,1];[배,950,1]");
-        Money balance = Money.from("1000");
+        Products products = Products.from("[사과,100,1];[배,150,1]");
+        Money balance = Money.from("200");
 
         vendingMachine = VendingMachine.of(holdingCoins, products, balance);
     }
@@ -27,7 +29,7 @@ public class VendingMachineTest {
         vendingMachine.buy(Name.from("사과"));
 
         Money actualBalance = vendingMachine.getBalance();
-        Money expectedBalance = Money.from("900");
+        Money expectedBalance = Money.from("100");
 
         assertThat(actualBalance).isEqualTo(expectedBalance);
     }
@@ -54,9 +56,10 @@ public class VendingMachineTest {
                 .isThrownBy(() -> vendingMachine.buy(Name.from("사과")));
     }
 
-    @Test
-    void 구매_가능_여부를_확인할_수_있다() {
-        vendingMachine.buy(Name.from("배"));
+    @ParameterizedTest
+    @ValueSource(strings = {"사과", "배"})
+    void 구매_가능_여부를_확인할_수_있다_(String name) {
+        vendingMachine.buy(Name.from(name));
 
         assertThat(vendingMachine.isPurchasable()).isFalse();
     }
