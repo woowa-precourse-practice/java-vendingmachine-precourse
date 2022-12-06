@@ -12,10 +12,12 @@ public class OutputView {
 
     private static final String NEW_LINE = "\n";
     private static final String RESULT_FORMAT = "%d원 - %d개";
-    private static final String BALANCE_IS = "투입금액: %s원";
+    private static final String BALANCE_IS = "투입 금액: %s원";
     private static final String ERROR_PREFIX = "[ERROR] ";
+    private static final String HOLDING_COINS_ARE = "자판기가 보유한 동전";
 
     public void printHoldingCoins(HoldingCoins holdingCoins) {
+        System.out.println(HOLDING_COINS_ARE);
         System.out.println(getStatisticOf(holdingCoins));
     }
 
