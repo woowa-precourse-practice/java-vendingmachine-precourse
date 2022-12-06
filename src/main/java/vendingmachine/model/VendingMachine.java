@@ -1,7 +1,8 @@
 package vendingmachine.model;
 
-import java.util.EnumMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VendingMachine {
 
@@ -43,17 +44,9 @@ public class VendingMachine {
     }
 
     public Map<Coin, Integer> changeBalance() {
-        EnumMap<Coin, Integer> coins = new EnumMap<>(Coin.class);
-        Coin.amounts().stream()
-                .filter(balance::convertableBy)
-                .forEach(amount -> toCoins(amount, coins));
-
-        return coins;
-    }
-
-    private void toCoins(int amount, EnumMap<Coin, Integer> coins) {
-        Coin coin = Coin.create(amount);
-        coins.put(coin, countOptimal(coin));
+        return Arrays.stream(Coin.values())
+                .filter(coin -> balance.convertableBy(coin.getAmount()))
+                .collect(Collectors.toMap(coin -> coin, this::countOptimal));
     }
 
     private int countOptimal(Coin coin) {
