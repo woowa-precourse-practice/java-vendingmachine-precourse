@@ -9,6 +9,7 @@ public class Money {
     private static final String NOT_AFFORDABLE_MESSAGE = "잔액이 부족합니다.";
     private static final String INVALID_NEGATIVE_PRICE = "금액은 음수가 될 수 없습니다";
     private static final int PRICE_LOWER_BOUND = 0;
+    
     private int amount;
 
     public Money(int amount) {
