@@ -52,12 +52,20 @@ public class VendingMachineController {
     public void run() {
         while (vendingMachine.isPurchasable()) {
             outputView.printBalance(vendingMachine);
-
-            Name name = checkError(inputView::readName);
-            vendingMachine.buy(name);
+            purchase();
         }
         outputView.printBalance(vendingMachine);
         outputView.printBalanceCoins(vendingMachine.changeBalance());
+    }
+
+    private void purchase() {
+        try {
+            Name name = inputView.readName();
+            vendingMachine.buy(name);
+        } catch (IllegalArgumentException error) {
+            outputView.printError(error);
+            purchase();
+        }
     }
 
     private <T> T checkError(Supplier<T> inputReader) {
