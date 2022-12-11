@@ -50,6 +50,10 @@ public class Money {
         return amount / coin.getAmount();
     }
 
+    public boolean isLessThan(int amount) {
+        return this.amount < amount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

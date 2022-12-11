@@ -25,5 +25,6 @@ public class CoinMaker {
             money.decreaseBy(amount);
             coins.add(Coin.create(amount));
         }
+        coinAmountGenerator.update(money);
     }
 }
