@@ -46,6 +46,7 @@ public class VendingMachine {
     public Map<Coin, Integer> changeBalance() {
         return Arrays.stream(Coin.values())
                 .filter(coin -> balance.convertableBy(coin.getAmount()))
+                .peek(coin -> balance.decreaseBy(coin.getAmount()))
                 .collect(Collectors.toMap(coin -> coin, this::countOptimal));
     }
 
