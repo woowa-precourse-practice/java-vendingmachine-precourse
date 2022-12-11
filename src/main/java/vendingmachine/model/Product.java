@@ -63,6 +63,10 @@ public class Product implements Comparable<Product> {
         return quantity.isEmpty();
     }
 
+    public boolean isPurchasableWith(int amount) {
+        return price.isPurchasableWith(amount);
+    }
+
     @Override
     public int compareTo(Product other) {
         return this.price.compareTo(other.price);

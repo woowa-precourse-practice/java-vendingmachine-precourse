@@ -40,7 +40,7 @@ public class VendingMachine {
     }
 
     private boolean isAffordable() {
-        return balance.isAffordable(products.getCheapestPrice());
+        return balance.isAffordable(products.getCheapest());
     }
 
     public Map<Coin, Integer> changeBalance() {

@@ -42,6 +42,10 @@ public class Price implements Comparable<Price> {
         return amount;
     }
 
+    public boolean isPurchasableWith(int amount) {
+        return this.amount <= amount;
+    }
+
     @Override
     public int compareTo(Price other) {
         return this.amount - other.amount;

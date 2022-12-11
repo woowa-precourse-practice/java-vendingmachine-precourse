@@ -81,11 +81,10 @@ public class Products {
                 .orElseThrow(() -> new IllegalArgumentException(NO_SUCH_PRODUCT_MESSAGE));
     }
 
-    public int getCheapestPrice() {
+    public Product getCheapest() {
         return products.stream()
                 .min(Product::compareTo)
-                .get()
-                .getPrice();
+                .get();
     }
 
     public boolean hasStock() {
