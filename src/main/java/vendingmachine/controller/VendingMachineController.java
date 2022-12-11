@@ -51,10 +51,10 @@ public class VendingMachineController {
 
     public void run() {
         while (vendingMachine.isPurchasable()) {
-            outputView.printBalance(vendingMachine);
+            outputView.printBalance(vendingMachine.getBalance());
             checkError(this::purchase);
         }
-        outputView.printBalance(vendingMachine);
+        outputView.printBalance(vendingMachine.getBalance());
         outputView.printBalanceCoins(vendingMachine.changeBalance());
     }
 

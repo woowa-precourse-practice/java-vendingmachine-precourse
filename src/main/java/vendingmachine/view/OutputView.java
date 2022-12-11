@@ -2,7 +2,7 @@ package vendingmachine.view;
 
 import vendingmachine.model.Coin;
 import vendingmachine.model.HoldingCoins;
-import vendingmachine.model.VendingMachine;
+import vendingmachine.model.Money;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -27,8 +27,8 @@ public class OutputView {
                 .collect(Collectors.joining(NEW_LINE));
     }
 
-    public void printBalance(VendingMachine vendingMachine) {
-        System.out.printf(BALANCE_IS, vendingMachine.getBalance());
+    public void printBalance(Money balance) {
+        System.out.printf(BALANCE_IS, balance);
     }
 
     public void printError(IllegalArgumentException error) {
